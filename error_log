@@ -1,0 +1,38 @@
+[23-Aug-2022 15:34:21 UTC] PHP Fatal error:  Allowed memory size of 41943040 bytes exhausted (tried to allocate 65536 bytes) in /home/vermontg/public_html/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php on line 10
+[23-Aug-2022 15:34:24 UTC] PHP Fatal error:  Allowed memory size of 41943040 bytes exhausted (tried to allocate 32768 bytes) in /home/vermontg/public_html/wp-content/plugins/wordpress-seo/admin/class-admin-asset-manager.php on line 396
+[23-Aug-2022 15:34:24 UTC] PHP Fatal error:  Allowed memory size of 41943040 bytes exhausted (tried to allocate 20480 bytes) in /home/vermontg/public_html/wp-content/plugins/wordpress-seo/admin/class-admin-asset-manager.php on line 364
+[23-Aug-2022 15:34:26 UTC] PHP Fatal error:  Allowed memory size of 41943040 bytes exhausted (tried to allocate 65536 bytes) in /home/vermontg/public_html/wp-content/plugins/wordpress-seo/src/presentations/abstract-presentation.php on line 10
+[23-Aug-2022 15:37:00 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.0.0". You are running 5.6.40. in /home/vermontg/public_html/wp-content/plugins/svg-support/vendor/composer/platform_check.php on line 25
+[23-Aug-2022 15:37:01 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.0.0". You are running 5.6.40. in /home/vermontg/public_html/wp-content/plugins/svg-support/vendor/composer/platform_check.php on line 25
+[23-Aug-2022 15:37:05 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.0.0". You are running 5.6.40. in /home/vermontg/public_html/wp-content/plugins/svg-support/vendor/composer/platform_check.php on line 25
+[23-Aug-2022 19:42:54 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function getCurrentScore(), 1 passed in /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php on line 1097 and exactly 2 expected in /home/vermontg/public_html/wp-content/themes/vcv/functions.php:187
+Stack trace:
+#0 /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php(1097): getCurrentScore(2914)
+#1 /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php(959): searchTown('Brownington', 'Senate')
+#2 /home/vermontg/public_html/wp-content/themes/vcv/page-521.php(17): print_results_by_district('', 'Brownington', 'Senate')
+#3 /home/vermontg/public_html/wp-includes/template-loader.php(106): include('/home/vermontg/...')
+#4 /home/vermontg/public_html/wp-blog-header.php(19): require_once('/home/vermontg/...')
+#5 /home/vermontg/public_html/index.php(17): require('/home/vermontg/...')
+#6 {main}
+  thrown in /home/vermontg/public_html/wp-content/themes/vcv/functions.php on line 187
+[23-Aug-2022 21:59:08 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function getCurrentScore(), 1 passed in /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php on line 1097 and exactly 2 expected in /home/vermontg/public_html/wp-content/themes/vcv/functions.php:187
+Stack trace:
+#0 /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php(1097): getCurrentScore(440)
+#1 /home/vermontg/public_html/wp-content/themes/vcv/GoogleApi.php(959): searchTown('Bennington', 'Senate')
+#2 /home/vermontg/public_html/wp-content/themes/vcv/page-521.php(17): print_results_by_district('', 'Bennington', 'Senate')
+#3 /home/vermontg/public_html/wp-includes/template-loader.php(106): include('/home/vermontg/...')
+#4 /home/vermontg/public_html/wp-blog-header.php(19): require_once('/home/vermontg/...')
+#5 /home/vermontg/public_html/index.php(17): require('/home/vermontg/...')
+#6 {main}
+  thrown in /home/vermontg/public_html/wp-content/themes/vcv/functions.php on line 187
+[30-Sep-2022 21:22:04 UTC] PHP Warning:  Use of undefined constant ABSPATH - assumed 'ABSPATH' (this will throw an Error in a future version of PHP) in /home/vermontg/public_html/wp-settings.php on line 33
+[30-Sep-2022 21:22:04 UTC] PHP Warning:  require(ABSPATHwp-includes/version.php): failed to open stream: No such file or directory in /home/vermontg/public_html/wp-settings.php on line 33
+[30-Sep-2022 21:22:04 UTC] PHP Fatal error:  require(): Failed opening required 'ABSPATHwp-includes/version.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/vermontg/public_html/wp-settings.php on line 33
+[30-Sep-2022 21:22:07 UTC] PHP Warning:  Use of undefined constant ABSPATH - assumed 'ABSPATH' (this will throw an Error in a future version of PHP) in /home/vermontg/public_html/wp-settings.php on line 33
+[30-Sep-2022 21:22:07 UTC] PHP Warning:  require(ABSPATHwp-includes/version.php): failed to open stream: No such file or directory in /home/vermontg/public_html/wp-settings.php on line 33
+[30-Sep-2022 21:22:07 UTC] PHP Fatal error:  require(): Failed opening required 'ABSPATHwp-includes/version.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/vermontg/public_html/wp-settings.php on line 33
+[11-Oct-2022 16:10:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function function_exists() in /home/vermontg/public_html/wp-load.php:29
+Stack trace:
+#0 /home/vermontg/public_html/wp-login.php(12): require()
+#1 {main}
+  thrown in /home/vermontg/public_html/wp-load.php on line 29
