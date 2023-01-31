@@ -1,12 +1,15 @@
-<?php get_header(); ?>
+<?php get_header(); 
+// Legislator Search Results from GET Request on page-10.php 
+?>
     <section id='content' class='container '>
         <h1><?php the_title(); ?></h1>
 
-			<?
+			<?php
 			$address=ucwords($_GET['address']);
 			$city=ucwords($_GET['city']);
 
 			$districtData=startLegislatorSearch($address, $city);
+			//wp_die(var_dump($districtData));
 			$senateDistrictCode=$districtData[0];
 			$senateDistrictName=$districtData[1];
 			$houseDistrictCode=$districtData[2];

@@ -188,8 +188,11 @@ function getCurrentScore($postid,$scoreYear){
 	$year=$scoreYear;
 	
 	$currentScore_en=get_post_meta( $postid , 'ScorecardScores', false);
-	($currentScore_en[0]).$scoreYear;
+	if (isset($currentScore_en[0])) {
+		($currentScore_en[0]).$scoreYear;
+	}
 	$currentScore=json_decode($currentScore_en[0], true);
+
 	
 	if(count($currentScore)>0 && $scoreYear){
 		
@@ -273,6 +276,29 @@ $args=array(
 	
 	echo "</section>";
 }
+
+function sortByLastName($legislatorsObject){
+
+	
+	// Break Post Title into Last name/first name etc..
+	foreach( $legislatorsObject as $legislator) {
+		$name = $legislator->post_title;
+		$exploded_name = explode(' ', $name);
+		$last_name = array(end($exploded_name));
+		array_pop($exploded_name);
+		$last_name_first = array_merge($last_name, $exploded_name);
+		$legislator->post_title = implode(', ', $last_name_first);
+	}
+
+	// Sort by last Name
+
+	usort($legislatorsObject, function ($a, $b) {
+		return strcmp($a->post_title, $b->post_title);
+	});
+
+	return $legislatorsObject;
+
+}
 	
 	function printScoreCard($chamber,$scorecardYear,$default){
 		
@@ -297,8 +323,8 @@ $args=array(
 								<?php
 				$args=array(
 					'post_type'=>'legsilators',
-					'order'=>'title',
-					'orderby'=>'asc',
+    				'orderby'=> 'post_title',
+					'order'=> 'ASC',
 					'tax_query' => array(
 						array(
 							'taxonomy' => 'chamber',
@@ -310,6 +336,17 @@ $args=array(
 										
 					$the_query = new WP_Query( $args );
 
+					// Switching out of WP Query Object to process results by Last name
+					$legislators = $the_query->posts;
+					$legislators = sortByLastName($legislators);
+
+					?> 
+					<!-- <pre> <?php
+						//var_dump($legislators);?>
+					</pre> -->
+					
+					<?php
+
 					// The Loop
 					if ( $the_query->have_posts() ) {
 						
@@ -318,10 +355,15 @@ $args=array(
 														
 						$cscore=getCurrentScore(get_the_id(), $scorecardYear);
 							
-						?><!-- <?php the_title(); ?>Get Current Score <?php print_r($cscore); ?> --><?php	
+						?><!-- <?php the_title(); ?>Get Current Score <?php print_r($cscore ? $cscore : "no score yet"); ?> --><?php	
 						
-						$year=$cscore[0];
-						$currentYear=$cscore[1];						
+						if (isset($cscore[0])) {
+							$year = $cscore[0];
+						}
+
+						if (isset($cscore[1])) {
+							$currentYear=$cscore[1];						
+						}
 						
 						$lifetime=get_post_meta( get_the_id(), 'lifetime_score', true);
 						

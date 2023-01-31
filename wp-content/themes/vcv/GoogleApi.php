@@ -848,7 +848,10 @@ function startLegislatorSearch($address, $city){
 
         //exit;
 					$obj=json_decode($json);
-					$divisions=$obj->divisions;
+					$divisions=$obj->divisions;?>
+					<!-- <pre>
+<?php
+					//var_dump($divisions); ?></pre> <?php
 
 					$senateDistrictCode='';
 					$senateDistrictName='';
@@ -871,6 +874,10 @@ function startLegislatorSearch($address, $city){
 						}
 
 					}
+
+					?>
+					<pre> <?php
+					//wp_die(var_dump($senateDistrictCode, $senateDistrictName, $houseDistrictCode, $houseDistrictName));?></pre><?php
 
 					return array(
 					$senateDistrictCode,

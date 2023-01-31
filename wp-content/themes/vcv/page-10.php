@@ -2,7 +2,8 @@
 // This is the Scorecard Page 
 //
 get_header(); ?>
-<?php   $year=getCurrentYear(); ?>
+<?php   $year=getCurrentYear();
+var_dump($year); ?>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/tablesorter-master/jquery.tablesorter.min.js"></script>
 	<section id='pageBanner'>
@@ -10,7 +11,9 @@ get_header(); ?>
 		</section>
     <section id='content' class='container clearfix'>
 		<nav class='scoreboard'>
-			<a href='#' data-tab='senate'>Senate Scorecard</a><a href='#' data-tab='house'>House Scorecard</a><a href='#' data-tab='bills'>Bill Descriptions</a>
+			<a href='#' data-tab='senate'>Senate Scorecard</a>
+			<a href='#' data-tab='house'>House Scorecard</a>
+			<a href='#' data-tab='bills'>Bill Descriptions</a>
 			
 			<h4 class='yearLabel'><?php echo $year; ?></h4>
 		</nav>
