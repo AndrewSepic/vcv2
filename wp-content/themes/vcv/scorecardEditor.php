@@ -8,7 +8,7 @@
 	<?php 	//set year to POST year from form above or use last year entered	/*if($_POST['currentYear']){		 $currentYear=sanitize_text_field($_POST['currentYear']);			 echo "POSTED":	} else {		echo "DEFAULT";		$scorecardYears = get_terms( 'scorecard', array(			'hide_empty' => false,		) );		 $currentYear= $scorecardYears[(count($scorecardYears)-1)]->name; 	}		echo "<h1>$currentYear Scorecard</h1>"; */		?>		<?php  if($_POST['currentYear']){		$currentYear=sanitize_text_field($_POST['currentYear']);		} else {			$c=count($scorecardYears)-1;			$currentYear= $scorecardYears[$c]->name;	}		?>	<h1 style='border-bottom:solid 1px black; margin:20px 0;'><?=$currentYear ?> Scorecard</h1></section>
 	<section class='scorecard' data-year='<?php echo $currentYear; ?>' >
 		<h2>House</h2>
-		<?
+		<?php
 		
 		$houseBills=getBills("House", $currentYear);
 		$bills=$houseBills[0];
@@ -85,7 +85,7 @@
 	
 	<h2 style='margin-top:60px;'>Senate</h2>	
 	
-	<?	
+	<?php	
 	
 		$senateBills=getBills("Senate", $currentYear);
 		$bills=$senateBills[0];
@@ -266,7 +266,7 @@
 				
 </script>
 
-<?
+<?php
 
 function getBills($chamber, $currentYear){
 	$args = array(
