@@ -3,7 +3,7 @@
 //
 get_header(); ?>
 <?php   $year=getCurrentYear();
-var_dump($year); ?>
+//var_dump($year); ?>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/tablesorter-master/jquery.tablesorter.min.js"></script>
 	<section id='pageBanner'>

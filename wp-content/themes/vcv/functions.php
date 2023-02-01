@@ -309,7 +309,7 @@ function sortByLastName($legislatorsObject){
 			
 		echo "<section class='scorecardYear$scorecardYear scorecardYear $active' >";
 		?>
-			<table border='0' cellspacing="0" cellpadding="0">
+			<table border="0" cellspacing="0" cellpadding="0">
 				<thead> 
 				<tr>
 					<th>Name <span></span></th>
@@ -340,12 +340,11 @@ function sortByLastName($legislatorsObject){
 					$legislators = $the_query->posts;
 					$legislators = sortByLastName($legislators);
 
-					?> 
-					<!-- <pre> <?php
-						//var_dump($legislators);?>
-					</pre> -->
-					
-					<?php
+					// ?>
+					<!-- <pre> -->
+						<?php 
+					// 	var_dump($legislators);?> 
+					 <!-- </pre> -->  <?php  
 
 					// The Loop
 					if ( $the_query->have_posts() ) {
@@ -375,8 +374,9 @@ function sortByLastName($legislatorsObject){
 						} else {
 							$secondParty='';
 						}
-						
-							if(! empty($currentYear)){
+
+							// If they have a score for the current year & not set to private - show legislator
+							if(isset($cscore[1]) && is_post_publicly_viewable() ){
 											
 								echo '<tr>
 									<td nowrap><a href="'.get_permalink().'">' . get_the_title() . '</a></td>
