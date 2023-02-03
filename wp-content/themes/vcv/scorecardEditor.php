@@ -5,7 +5,14 @@
 	<section id="status"></section>		<section id='YearSelector'>
 	<form action='' method='POST' style='margin-top: 20px;'><label><strong>Scorecard Year</strong></label><select name='currentYear'>
 <?php $scorecardYears = get_terms( 'scorecard', array(    'hide_empty' => false,) );foreach($scorecardYears as $v){			$name=$v->name;		echo "<option>$name</option>";		}	?></select><input type='submit' value='GO'></form>
-	<?php 	//set year to POST year from form above or use last year entered	/*if($_POST['currentYear']){		 $currentYear=sanitize_text_field($_POST['currentYear']);			 echo "POSTED":	} else {		echo "DEFAULT";		$scorecardYears = get_terms( 'scorecard', array(			'hide_empty' => false,		) );		 $currentYear= $scorecardYears[(count($scorecardYears)-1)]->name; 	}		echo "<h1>$currentYear Scorecard</h1>"; */		?>		<?php  if($_POST['currentYear']){		$currentYear=sanitize_text_field($_POST['currentYear']);		} else {			$c=count($scorecardYears)-1;			$currentYear= $scorecardYears[$c]->name;	}		?>	<h1 style='border-bottom:solid 1px black; margin:20px 0;'><?=$currentYear ?> Scorecard</h1></section>
+	<?php 	//set year to POST year from form above or use last year entered	/*if($_POST['currentYear']){		 $currentYear=sanitize_text_field($_POST['currentYear']);			 echo "POSTED":	} else {		echo "DEFAULT";		$scorecardYears = get_terms( 'scorecard', array(			'hide_empty' => false,		) );		 $currentYear= $scorecardYears[(count($scorecardYears)-1)]->name; 	}		echo "<h1>$currentYear Scorecard</h1>"; */		?>		
+	<?php  if($_POST['currentYear']) {	
+		$currentYear=sanitize_text_field($_POST['currentYear']);		
+		} else { 
+			$c=count($scorecardYears)-1;			
+			$currentYear= $scorecardYears[$c]->name;	
+		}		?>	
+	<h1 style='border-bottom:solid 1px black; margin:20px 0;'><?=$currentYear ?> Scorecard</h1></section>
 	<section class='scorecard' data-year='<?php echo $currentYear; ?>' >
 		<h2>House</h2>
 		<?php
@@ -37,22 +44,27 @@
 		)
 		);
 	$query = new WP_Query( $args );
+
+	// Switching out of WP Query Object to process results by Last name
+	$legislators = $query->posts;
+	$legislators = sortByLastName($legislators); ?>
+	<pre> <?php 
+	//var_dump($legislators); ?></pre><?php
 	
-	if ( $query->have_posts() ) {
+	if ( $legislators) {
 		
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			$post_id=get_the_id();
-			
-			$status=get_post_status( get_the_ID() );
-			echo "<!-- LEGISLATOR ID: ".get_the_id()." Status: ".get_post_status( get_the_ID() )."-->"; 
+		foreach ( $legislators as $legislator ) {
+
+			$post_id = $legislator->ID;
+			$status=get_post_status( $post_id );
+			echo "<!-- LEGISLATOR ID: ". $post_id ." Status: ".get_post_status( $post_id )."-->"; 
 			if($status=="private"){continue;}
 			
 			$bills=get_post_meta($post_id, "Bills" );
 			$billsA=json_decode( $bills[0]);
 			
 			echo '<tr>';
-			echo '<td nowrap>'. get_the_title() . '<input type="hidden" class="personID" value="'.$post_id.'"></td>'.buildInputs($inputs, $billsA);
+			echo '<td nowrap>'. $legislator->post_title . '<input type="hidden" class="personID" value="'.$post_id.'"></td>'.buildInputs($inputs, $billsA);
 			
 			$currentScore="";
 			$cscores=get_post_meta($post_id,"ScorecardScores" );
@@ -115,23 +127,27 @@
 		)
 		);
 	$query = new WP_Query( $args );
+
+	// Switching out of WP Query Object to process results by Last name
+	$senators = $query->posts;
+	$senators = sortByLastName($senators); ?>
+	<pre> <?php 
+	//var_dump($legislators); ?></pre><?php
 	
-	if ( $query->have_posts() ) {
-		
-		while ( $query->have_posts() ) {
-			$query->the_post();
+	if ( $senators ) {
+		foreach ( $senators as $senator ) {
+			$post_id = $senator->ID;
 				
-			$bills=get_post_meta(get_the_ID(), "Bills" );
+			$bills=get_post_meta($post_id, "Bills" );
 			$billsA=json_decode( $bills[0]);
 			
-			$status=get_post_status( get_the_ID() );
-			echo "<!-- LEGISLATOR ID: ".get_the_id()." Status: ".get_post_status( get_the_ID() )."-->"; 
+			$status=get_post_status( $post_id );
+			echo "<!-- LEGISLATOR ID: ". $post_id ." Status: ". get_post_status( $post_id ) ."-->"; 
 			if($status=="private"){continue;}
 			
 			echo '<tr>';
-			echo '<td nowrap>' . get_the_title() . '<input type="hidden" class="personID" value="'.get_the_id().'"></td>'.buildInputs($inputs, $billsA);
+			echo '<td nowrap>' . $senator->post_title . '<input type="hidden" class="personID" value="'. $post_id .'"></td>'.buildInputs($inputs, $billsA);
 			
-			$post_id=get_the_id();
 			$score=get_post_meta($post_id,"lifetime_score" );
 			
 			$currentScore="";
@@ -277,15 +293,17 @@ function getBills($chamber, $currentYear){
 			'taxonomy' => 'chamber',
 			'field'    => 'slug',
 			'terms'    => $chamber
-		),		array(			'taxonomy' => 'scorecard',			'field'    => 'name',			'terms'    => $currentYear		),
+		),		array(			
+			'taxonomy' => 'scorecard',			
+			'field'    => 'name',			
+			'terms'    => $currentYear		
+		),
 	),
 );
 	$query = new WP_Query( $args );
 	
 	$inputs=array();
 	if ( $query->have_posts() ) {
-		
-		
 		
 		while ( $query->have_posts() ) {
 			$query->the_post();

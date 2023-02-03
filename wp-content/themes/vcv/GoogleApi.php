@@ -849,9 +849,9 @@ function startLegislatorSearch($address, $city){
         //exit;
 					$obj=json_decode($json);
 					$divisions=$obj->divisions;?>
-					<!-- <pre>
+					<pre>
 <?php
-					//var_dump($divisions); ?></pre> <?php
+					var_dump($divisions); ?></pre> <?php
 
 					$senateDistrictCode='';
 					$senateDistrictName='';
@@ -872,7 +872,6 @@ function startLegislatorSearch($address, $city){
 							}
 
 						}
-
 					}
 
 					?>
