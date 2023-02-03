@@ -1640,7 +1640,7 @@ nav.scoreboard a {
 	border-right:solid 1px white;
 	color:white;
 	text-decoration:none;
-	transition:background .2s;
+	transition: background .2s;
 	margin:0;
 }
 
@@ -1649,29 +1649,33 @@ nav.scoreboard a.active {
 	background:#e55d02;
 }
 
-	.page-id-10  #intro .content {
+	.page-id-10  #intro .content,
+	.page-id-8 #intro .content {
 		float:left;
 		width: calc( 100% - 300px );
 	}
 
-	.page-id-10  #intro  nav {
+	.page-id-10  #intro  nav,
+	.page-id-8 #intro nav {
 		background:#ecf1f6;
-		float:right;
-		width:200;
-		padding:20px;
-		line-height:150%;
+		float: right;
+		width: 200px;
+		padding: 20px;
+		line-height: 150%;
 	}
 
-	.page-id-10  #intro  nav a {
+	.page-id-10  #intro  nav a,
+	.page-id-8  #intro  nav a {
 			color:black;
 			text-decoration:none;
 			font-weight:bold;
 
 	}
-	.page-id-10  #intro  nav .descriptor {
+	.page-id-10  #intro  nav .descriptor,
+	.page-id-8 #intro nav .descriptor {
 		color:#e55d02;
-		font-weight:normal;
-		font-weight:bold;
+		font-weight: normal;
+		font-weight: bold;
 	}
 
 .tabbed {

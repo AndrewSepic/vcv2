@@ -1,8 +1,20 @@
-<?php get_header(); ?>
+<?php 
+// Issues Page
+	get_header(); ?>
     <section id='content' class='container clearfix'>
         <h1><?php the_title(); ?></h1>
                 <?php the_post_thumbnail('medium'); ?>
-        <?php the_content(); ?>
+		<div id='intro' class='intro'>
+			<div class="content">
+        		<?php the_content(); ?>
+			</div>
+			<nav>
+				<p class='descriptor'>
+					<?php the_field('past_issues_title'); ?>
+				</p>
+				<?php the_field('past_issues'); ?>
+			</nav>
+		</div>
     </section>
     <section id='actions' class='container '>
     
