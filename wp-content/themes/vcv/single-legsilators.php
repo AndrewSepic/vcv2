@@ -43,7 +43,7 @@
 					</p>
 					
 					<?php endif; ?>
-					<?						$year=getCurrentYear();
+					<?php				$year=getCurrentYear();
 						$cscore=getCurrentScore(get_the_id(),$year );
 						$year=$cscore[0];
 						$currentYear=$cscore[1];
@@ -55,7 +55,7 @@
 				</section>	
 				<aside class='contactInfo'>
 					<h2>Contact your legislator</h2>
-				<?
+				<?php
 				$phones=	get_field("phones");
 				$email= 	get_field("email");
 				$fb=	get_field("facebook_id");
