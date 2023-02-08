@@ -32,8 +32,9 @@
 	
 		$args = array(
 		'post_type' => 'legsilators',
-		'orderby'=> 'title',
-		'order'=>'asc',
+		'meta_key'  => 'last_name',
+		'orderby'   => 'meta_value',
+		'order'     => 'ASC',
 		'tax_query' => array(
 			array(
 				'taxonomy' => 'chamber',
@@ -44,18 +45,17 @@
 		)
 		);
 	$query = new WP_Query( $args );
-
-	// Switching out of WP Query Object to process results by Last name
-	$legislators = $query->posts;
-	$legislators = sortByLastName($legislators); ?>
-	<pre> <?php 
-	//var_dump($legislators); ?></pre><?php
 	
-	if ( $legislators) {
+	?>
+	<pre> <?php 
+	//var_dump($query); ?></pre><?php
+	
+	if ( $query->have_posts() ) {
 		
-		foreach ( $legislators as $legislator ) {
+		while( $query->have_posts() ) {
+			$query->the_post();
+			$post_id=get_the_id();
 
-			$post_id = $legislator->ID;
 			$status=get_post_status( $post_id );
 			echo "<!-- LEGISLATOR ID: ". $post_id ." Status: ".get_post_status( $post_id )."-->"; 
 			if($status=="private"){continue;}
@@ -64,7 +64,7 @@
 			$billsA=json_decode( $bills[0]);
 			
 			echo '<tr>';
-			echo '<td nowrap>'. $legislator->post_title . '<input type="hidden" class="personID" value="'.$post_id.'"></td>'.buildInputs($inputs, $billsA);
+			echo '<td nowrap>'. get_field('last_name') . ", " . get_field('first_name') . '<input type="hidden" class="personID" value="'.$post_id.'"></td>'.buildInputs($inputs, $billsA);
 			
 			$currentScore="";
 			$cscores=get_post_meta($post_id,"ScorecardScores" );
@@ -114,8 +114,9 @@
 	
 		$args = array(
 		'post_type' => 'legsilators',
-		'orderby'=>'title',
-		'order'=>'asc',
+		'meta_key' => 'last_name',
+		'orderby'=> 'meta_value',
+		'order'=> 'ASC',
 		"post_status "=>'publish',
 		'tax_query' => array(
 			array(
@@ -126,11 +127,8 @@
 			'posts_per_page'=>-1
 		)
 		);
-	$query = new WP_Query( $args );
+	$query = new WP_Query( $args ); ?>
 
-	// Switching out of WP Query Object to process results by Last name
-	$senators = $query->posts;
-	$senators = sortByLastName($senators); ?>
 	<pre> <?php 
 	//var_dump($legislators); ?></pre><?php
 	

@@ -9,7 +9,6 @@
 			$city=ucwords($_GET['city']);
 
 			$districtData=startLegislatorSearch($address, $city);
-			//wp_die(var_dump($districtData));
 			$senateDistrictCode=$districtData[0];
 			$senateDistrictName=$districtData[1];
 			$houseDistrictCode=$districtData[2];

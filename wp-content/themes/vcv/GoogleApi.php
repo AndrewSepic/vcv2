@@ -848,10 +848,7 @@ function startLegislatorSearch($address, $city){
 
         //exit;
 					$obj=json_decode($json);
-					$divisions=$obj->divisions;?>
-					<pre>
-<?php
-					var_dump($divisions); ?></pre> <?php
+					$divisions=$obj->divisions;
 
 					$senateDistrictCode='';
 					$senateDistrictName='';
@@ -888,78 +885,78 @@ function startLegislatorSearch($address, $city){
 
 function print_results_by_district($district, $city, $chamber){
 
-						$count=0;
-						$args = array(
-							'post_type' => 'legsilators',
-              'post_status' => 'publish',
-							'meta_query' => array(
-								array(
-									'key'     => 'division_id',
-									'value'   => $district,
-									'compare' => '=',
-								),
-							),
-						);
+		$count=0;
+		$args = array(
+			'post_type' => 'legsilators',
+'post_status' => 'publish',
+			'meta_query' => array(
+				array(
+					'key'     => 'division_id',
+					'value'   => $district,
+					'compare' => '=',
+				),
+			),
+		);
 
-					$query = new WP_Query( $args );
+	$query = new WP_Query( $args );
 
-					$count=$count+($query->post_count);
-					//	echo $count;
-					if ( $query->have_posts() ) {
+	$count=$count+($query->post_count);
+	//	echo $count;
+	if ( $query->have_posts() ) {
 
-						while ( $query->have_posts() ) {
-							$query->the_post();
+		while ( $query->have_posts() ) {
+			$query->the_post();
 
-							?>
+			?>
 
-							<article class='searchResult clearfix'>
-								<div class='img'> <?php the_post_thumbnail('thumbnail') ?></div>
+			<article class='searchResult clearfix'>
+				<div class='img'> <?php the_post_thumbnail('thumbnail') ?></div>
 
-								<div class='copy'>
-									<h3><a href='<?php  the_permalink(); ?>'  data-id='<?php the_id();  ?>' data-email='<?php the_field('email'); ?>' data-facebook='<?php the_field('facebook_id'); ?>' data-phone='<?php the_field('phones'); ?>'><?php the_title(); ?></a></h3>
-										<?php if ($chamber=="Senate"): ?>
-										<p>
-										<span class='party'><?php echo substr(get_field('party'),0,1); ?></span>
-										<?php
-										if( get_field('second_party') && get_field('second_party') !="null"){ ?>
-											<span class='party second'><?php echo substr(get_field('second_party'),0,1); ?></span>
-										<?php } ?>
-										<span class='towns'><strong>District: </strong><?php the_field('towns'); ?></span>
-									</p>
-									<?php else: ?>
-									<p>
-										<span class='party'><?php echo substr(get_field('party'),0,1); ?></span>
-										<?php
-										if( get_field('second_party')  && get_field('second_party') !="null"){ ?>
-											<span class='party second'><?php echo substr(get_field('second_party'),0,1); ?></span>
-										<?php } ?>
-										<span class='towns'><strong>District: </strong><?php echo get_district(get_the_id()); ?></span> <em style='font-size:.8em;'>&ndash; <?php the_field('towns'); ?></em>
-									</p>
-
-									<?php endif; ?>
-
-									<?php
-									$cscore=getCurrentScore(get_the_id(), date('Y'));
-
-									$year=$cscore[0];
-									$currentYear=$cscore[1];
-
-									$lifetime=get_post_meta( get_the_id(), 'lifetime_score', true);
-									?>
-									<p><?php echo $year ?> Score: <strong><?php echo $currentYear; ?></strong> Lifetime Score: <strong><?php echo $lifetime; ?>%</strong></p>
-
-
-								</div>
-							</article>
+				<div class='copy'>
+					<h3><a href='<?php  the_permalink(); ?>'  data-id='<?php the_id();  ?>' data-email='<?php the_field('email'); ?>' data-facebook='<?php the_field('facebook_id'); ?>' data-phone='<?php the_field('phones'); ?>'><?php the_title(); ?></a></h3>
+						<?php if ($chamber=="Senate"): ?>
+						<p>
+						<span class='party'><?php echo substr(get_field('party'),0,1); ?></span>
 						<?php
-							wp_reset_postdata();
+						if( get_field('second_party') && get_field('second_party') !="null"){ ?>
+							<span class='party second'><?php echo substr(get_field('second_party'),0,1); ?></span>
+						<?php } ?>
+						<span class='towns'><strong>District: </strong><?php the_field('towns'); ?></span>
+					</p>
+					<?php else: ?>
+					<p>
+						<span class='party'><?php echo substr(get_field('party'),0,1); ?></span>
+						<?php
+						if( get_field('second_party')  && get_field('second_party') !="null"){ ?>
+							<span class='party second'><?php echo substr(get_field('second_party'),0,1); ?></span>
+						<?php } ?>
+						<span class='towns'><strong>District: </strong><?php echo get_district(get_the_id()); ?></span> <em style='font-size:.8em;'>&ndash; <?php the_field('towns'); ?></em>
+					</p>
 
-							}
-						}
+					<?php endif; ?>
 
-					if($count==0){
-						searchTown($city, $chamber);
-					}
+					<?php
+					$cscore=getCurrentScore(get_the_id(), date('Y'));
+
+					$year=$cscore[0];
+					$currentYear=$cscore[1];
+
+					$lifetime=get_post_meta( get_the_id(), 'lifetime_score', true);
+					?>
+					<p><?php echo $year ?> Score: <strong><?php echo $currentYear; ?></strong> Lifetime Score: <strong><?php echo $lifetime; ?>%</strong></p>
+
+
+				</div>
+			</article>
+		<?php
+			wp_reset_postdata();
+
+			}
+		}
+
+	if($count==0){
+		searchTown($city, $chamber);
+	}
 }
 
 function searchTown($city, $chamber){

@@ -323,7 +323,8 @@ function sortByLastName($legislatorsObject){
 								<?php
 				$args=array(
 					'post_type'=>'legsilators',
-    				'orderby'=> 'post_title',
+					'meta_key' => 'last_name',
+    				'orderby'=> 'meta_value',
 					'order'=> 'ASC',
 					'tax_query' => array(
 						array(
@@ -335,10 +336,6 @@ function sortByLastName($legislatorsObject){
 				);
 										
 					$the_query = new WP_Query( $args );
-
-					// Switching out of WP Query Object to process results by Last name
-					$legislators = $the_query->posts;
-					$legislators = sortByLastName($legislators);
 
 					// ?>
 					<!-- <pre> -->
@@ -379,7 +376,7 @@ function sortByLastName($legislatorsObject){
 							if(isset($cscore[1]) && is_post_publicly_viewable() ){
 											
 								echo '<tr>
-									<td nowrap><a href="'.get_permalink().'">' . get_the_title() . '</a></td>
+									<td nowrap><a href="'.get_permalink().'">' . get_field('last_name') . ", " . get_field('first_name') . '</a></td>
 									<td class="town" >'. get_field('towns').'</td>
 									<td nowrap>'. get_field('party').$secondParty.'</td>
 									<td class="cscore" >'.$currentYear.'</td>
