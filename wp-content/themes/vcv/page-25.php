@@ -34,7 +34,7 @@ if( have_rows('people_group') ):
 								</div>
 					<?php } ?>
 					</div>
-					 <?
+					 <?php
 			
 			    endwhile;
 			

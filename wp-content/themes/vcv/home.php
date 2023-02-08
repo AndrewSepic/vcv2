@@ -15,7 +15,7 @@ if ( have_posts() ) {
 		}?>
         <?php the_excerpt(); ?>
         </article>
-        <?
+        <?php
 	} // end while
 } // end if
 ?>

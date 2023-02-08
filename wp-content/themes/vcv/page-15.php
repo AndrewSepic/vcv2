@@ -38,7 +38,7 @@
 	    		</div>
 	    		<div class='clearme'></div>
 	    	</div>
-	    	<?
+	    	<?php
 		}
 		
 		/* Restore original Post Data */
