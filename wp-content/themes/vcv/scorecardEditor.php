@@ -132,9 +132,11 @@
 	<pre> <?php 
 	//var_dump($legislators); ?></pre><?php
 	
-	if ( $senators ) {
-		foreach ( $senators as $senator ) {
-			$post_id = $senator->ID;
+	if ( $query->have_posts() ) {
+		
+		while( $query->have_posts() ) {
+			$query->the_post();
+			$post_id=get_the_id();
 				
 			$bills=get_post_meta($post_id, "Bills" );
 			$billsA=json_decode( $bills[0]);
@@ -144,7 +146,7 @@
 			if($status=="private"){continue;}
 			
 			echo '<tr>';
-			echo '<td nowrap>' . $senator->post_title . '<input type="hidden" class="personID" value="'. $post_id .'"></td>'.buildInputs($inputs, $billsA);
+			echo '<td nowrap>'. get_field('last_name') . ", " . get_field('first_name') . '<input type="hidden" class="personID" value="'.$post_id.'"></td>'.buildInputs($inputs, $billsA);
 			
 			$score=get_post_meta($post_id,"lifetime_score" );
 			
